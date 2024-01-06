@@ -1,0 +1,90 @@
+CREATE TABLE ZipCode (
+ZipCode VARCHAR(12),
+PRIMARY KEY (ZipCode), 
+Address VARCHAR(100),
+City VARCHAR(50)
+); 
+
+CREATE TABLE Test (
+ 	TestID VARCHAR(12), 
+PRIMARY KEY (TestID),
+Grade INT
+);
+
+CREATE TABLE Student (
+	StudentID VARCHAR(15) NOT NULL,
+		PRIMARY KEY (StudentID),
+	First_Name VARCHAR(25) NOT NULL,
+	Last_Name VARCHAR (25) NOT NULL,
+	Year INT,
+	GPA VARCHAR(5),
+	ParentID VARCHAR(25)
+		FOREIGN KEY (ParentID)
+		REFERENCES Parent_Guardian1(ParentID)
+);
+
+CREATE TABLE Tutor (
+  	TutorID VARCHAR(12),
+		PRIMARY KEY (TutorID),
+Name VARCHAR(50), 
+ 	Address VARCHAR(20),
+City VARCHAR(50), 
+State VARCHAR(2),
+ ZipCode VARCHAR(12), 
+ Availability VARCHAR(10)
+);
+
+CREATE TABLE Worksheet (
+WorksheetID  VARCHAR(15) NOT NULL,
+	PRIMARY KEY (WorksheetID),
+   	Worksheets_Submitted    VARCHAR(100),
+Grade VARCHAR(10)
+);
+
+CREATE TABLE Curriculum (
+CurriculumID VARCHAR(15) NOT NULL,
+    		PRIMARY KEY (CurriculumID),
+Subject VARCHAR(10) NOT NULL,
+FOREIGN KEY (WorksheetID)
+REFERENCES Worksheets (WorksheetID)
+);
+
+CREATE TABLE Session (
+	SessionID VARCHAR(15) NOT NULL,
+PRIMARY KEY (SessionID),
+	StartDateTime DATE,
+	EndDateTime DATE,
+  	StudentID VARCHAR(25),
+	TutorID VARCHAR (12),
+	CurriculumID VARCHAR (15),
+	FORIEGN KEY (StudentID)
+		REFERENCES Student1 (StudentID) 
+	FORIEGN KEY (TutorID)
+		REFERENCES Tutor (TutorID)
+	FORIEGN KEY (CurriculumID) 
+		REFERENCES Curriculum (CurriculumID)
+);
+
+CREATE TABLE Student_Information (
+	StudentID VARCHAR ( ) NOT NULL,
+	Address VARCHAR (100),
+	Zipcode VARCHAR(12),
+	ParentID VARCHAR (25),
+	FORIEGN KEY (StudentID)
+REFERENCES Parent_Guardian1 (ParentID)
+	FORIEGN KEY (ParentID),
+		REFERENCES Student1 (StudentID)
+
+) ;
+
+CREATE TABLE Parent_Guardian1 (
+    ParentID VARCHAR(20) NOT NULL,
+    First_Name VARCHAR(25) NOT NULL,
+    Last_Name VARCHAR(25) NOT NULL,
+    Student_Relationship VARCHAR(10) NOT NULL,
+    Address VARCHAR(100) NOT NULL,
+    Email_Address VARCHAR(50) NOT NULL,
+    Phone_Number VARCHAR(12) NOT NULL,
+    	PRIMARY KEY (ParentID),
+    FOREIGN KEY (ZipCodeID) REFERENCES ZipCode (ZipCodeID)
+);
